@@ -15,8 +15,8 @@ class Patinete extends Vehiculo{
     public function muestraResumen(): void
     {
         parent::muestraResumen();
-        echo "Autonomía en Km: " . $this->autonomiaKm . "km \n" .
-            "Velocidad máx. en km/h: " . $this->velocidadMaxkMh . "km/h \n";
+        echo "Autonomía en Km: " . $this->autonomiaKm . "km <br>" .
+            "Velocidad máx. en km/h: " . $this->velocidadMaxkMh . "km/h <br>";
 
     }
 

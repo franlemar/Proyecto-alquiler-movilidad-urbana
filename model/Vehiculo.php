@@ -23,8 +23,8 @@ class Vehiculo{
     }
 
     public function muestraResumen(): void{
-        echo "Producto: " . $this->titulo . "\n" .
-            "Precio sin IVA: " . $this->precio . "€ \n" .
-            "Precio con IVA: " . $this->getPrecioConIVA() . "€ \n";
+        echo "Producto: " . $this->titulo . "<br>" .
+            "Precio sin IVA: " . $this->precio . "€ <br>" .
+            "Precio con IVA: " . $this->getPrecioConIVA() . "€ <br>";
     }
 }
