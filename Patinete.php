@@ -1,14 +1,15 @@
 <?php
 
-class Patinete extends Vehiculo{
-
+class Patinete extends Vehiculo
+{
     public function __construct(
-        string $titulo,
-        int $numero,
-        float $precio,
+        string      $titulo,
+        int         $numero,
+        float       $precio,
         private int $autonomiaKm,
         private int $velocidadMaxkMh = 0
-    ){
+    )
+    {
         parent::__construct($titulo, $numero, $precio);
     }
 

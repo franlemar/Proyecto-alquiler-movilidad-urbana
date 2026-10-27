@@ -1,28 +1,35 @@
 <?php
 
-class Vehiculo{
+class Vehiculo
+{
 
     const float IVA = 0.21;
 
     public function __construct(
         public string $titulo,
-        private int $numero,
+        private int   $numero,
         private float $precio,
-    ){}
+    )
+    {
+    }
 
-    public function getNumero(): int{
+    public function getNumero(): int
+    {
         return $this->numero;
     }
 
-    public function getPrecio(): float{
+    public function getPrecio(): float
+    {
         return $this->precio;
     }
 
-    public function getPrecioConIVA(): float{
+    public function getPrecioConIVA(): float
+    {
         return ($this->precio * self::IVA) + $this->precio;
     }
 
-    public function muestraResumen(): void{
+    public function muestraResumen(): void
+    {
         echo "Producto: " . $this->titulo . "<br>" .
             "Precio sin IVA: " . $this->precio . "€ <br>" .
             "Precio con IVA: " . $this->getPrecioConIVA() . "€ <br>";

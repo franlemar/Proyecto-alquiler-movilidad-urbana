@@ -1,14 +1,15 @@
 <?php
 
-class BicicletaElectrica extends Vehiculo{
-
+class BicicletaElectrica extends Vehiculo
+{
     public function __construct(
-        string $titulo,
-        int $numero,
-        float $precio,
-        private int $marchas,
+        string         $titulo,
+        int            $numero,
+        float          $precio,
+        private int    $marchas,
         private string $tipo
-    ){
+    )
+    {
         parent::__construct($titulo, $numero, $precio);
     }
 
