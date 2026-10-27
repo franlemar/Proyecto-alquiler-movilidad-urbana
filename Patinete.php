@@ -1,5 +1,5 @@
 <?php
-
+include_once "Vehiculo.php";
 class Patinete extends Vehiculo
 {
     public function __construct(

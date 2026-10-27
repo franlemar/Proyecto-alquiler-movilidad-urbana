@@ -1,8 +1,8 @@
 <?php
-include "Vehiculo.php";
-include "Patinete.php";
-include "BicicletaElectrica.php";
-include "CocheElectrico.php";
+require_once "Vehiculo.php";
+require_once "Patinete.php";
+require_once "BicicletaElectrica.php";
+require_once "CocheElectrico.php";
 
 $vehiculo1 = new Vehiculo("Patinete Xiaomi Pro 2", 22, 3);
 echo "<strong>" . $vehiculo1->titulo . "</strong>";
@@ -19,7 +19,7 @@ echo "<br>Precio IVA incluido: " . $miPatinete->getPrecioConIva() . " euros";
 echo "<br>";
 echo "<br>" . $miPatinete->muestraResumen();
 
- //Bicicleta eléctrica
+//Bicicleta eléctrica
 $miBici = new BicicletaElectrica("Bici Eléctrica Orbea Vibe", 24, 15, 3, "Urbana");
 echo "<strong>" . $miBici->titulo . "</strong>";
 echo "<br>Precio: " . $miBici->getPrecio() . " euros";
