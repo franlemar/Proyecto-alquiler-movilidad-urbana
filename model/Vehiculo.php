@@ -2,9 +2,6 @@
 
 class Vehiculo{
 
-//    public string $titulo;
-//    private int $numero;
-//    private float $precio;
     const float IVA = 0.21;
 
     public function __construct(
@@ -28,6 +25,6 @@ class Vehiculo{
     public function muestraResumen(): void{
         echo "Producto: " . $this->titulo . "\n" .
             "Precio sin IVA: " . $this->precio . "€ \n" .
-            "Precio con IVA: " . $this->getPrecioConIVA() . "€";
+            "Precio con IVA: " . $this->getPrecioConIVA() . "€ \n";
     }
 }
