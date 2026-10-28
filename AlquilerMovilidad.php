@@ -8,6 +8,10 @@ include_once "Cliente.php";
 
 class AlquilerMovilidad
 {
+    private static int $indiceCliente = 0;
+    private static int $indiceVehiculo = 0;
+
+
     public function __construct(
         private string $direccion,
         /** @var Vehiculo[] */
@@ -48,8 +52,8 @@ class AlquilerMovilidad
         float  $precio,
         int    $autonomiaKm): void
     {
-        $indiceVehiculo = count($this->vehiculos) + 1;
-        $nuevoPatinete = new Patinete($titulo, $indiceVehiculo, $precio, $autonomiaKm);
+        self::$indiceVehiculo++;
+        $nuevoPatinete = new Patinete($titulo, self::$indiceVehiculo, $precio, $autonomiaKm);
 
         $this->incluirVehiculo($nuevoPatinete);
     }
@@ -60,8 +64,8 @@ class AlquilerMovilidad
         int    $marchas,
         string $tipo): void
     {
-        $indiceVehiculo = count($this->vehiculos) + 1;
-        $nuevaBicicletaElectrica = new BicicletaElectrica($titulo, $indiceVehiculo, $precio, $marchas, $tipo);
+        self::$indiceVehiculo++;
+        $nuevaBicicletaElectrica = new BicicletaElectrica($titulo, self::$indiceVehiculo, $precio, $marchas, $tipo);
 
         $this->incluirVehiculo($nuevaBicicletaElectrica);
     }
@@ -73,8 +77,8 @@ class AlquilerMovilidad
         int    $plazasMin,
         int    $plazasMax): void
     {
-        $indiceVehiculo = count($this->vehiculos) + 1;
-        $nuevoCocheElectrico = new CocheElectrico($titulo, $indiceVehiculo, $precio, $marcaModelo, $plazasMin, $plazasMax);
+        self::$indiceVehiculo++;
+        $nuevoCocheElectrico = new CocheElectrico($titulo, self::$indiceVehiculo, $precio, $marcaModelo, $plazasMin, $plazasMax);
 
         $this->incluirVehiculo($nuevoCocheElectrico);
     }
@@ -92,8 +96,8 @@ class AlquilerMovilidad
         string $nombre,
         int    $maxAlquilerConcurrente = 3): void
     {
-        $indiceSocio = count($this->socios) + 1;
-        $nuevoSocio = new Cliente($nombre, $indiceSocio, $maxAlquilerConcurrente);
+        self::$indiceSocio++;
+        $nuevoSocio = new Cliente($nombre, self::$indiceSocio, $maxAlquilerConcurrente);
 
         $this->socios[] = $nuevoSocio;
         echo "<br>Socio " . $nombre . " añadido correctamente.";
@@ -130,5 +134,4 @@ class AlquilerMovilidad
 
         $socioEncontrado->alquilar($vehiculoEncontrado);
     }
-
 }
