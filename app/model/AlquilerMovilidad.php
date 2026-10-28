@@ -1,12 +1,6 @@
 <?php
 
-namespace Dwes\AlquilerMovilidad;
-
-include_once "Vehiculo.php";
-include_once "Patinete.php";
-include_once "BicicletaElectrica.php";
-include_once "CocheElectrico.php";
-include_once "Cliente.php";
+namespace Dwes\AlquilerMovilidad\Model;
 
 class AlquilerMovilidad
 {

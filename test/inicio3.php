@@ -1,7 +1,7 @@
 <?php
-include_once "AlquilerMovilidad.php"; // No incluimos nada más
+include_once __DIR__ . "/../vendor/autoload.php"; // No incluimos nada más
 
-use Dwes\AlquilerMovilidad\AlquilerMovilidad;
+use Dwes\AlquilerMovilidad\Model\AlquilerMovilidad;
 
 $am = new AlquilerMovilidad("Severo 8A");
 

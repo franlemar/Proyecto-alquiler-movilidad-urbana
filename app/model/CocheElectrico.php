@@ -1,7 +1,6 @@
 <?php
-namespace Dwes\AlquilerMovilidad;
+namespace Dwes\AlquilerMovilidad\Model;
 
-include_once "Vehiculo.php";
 
 class CocheElectrico extends Vehiculo
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dwes\AlquilerMovilidad;
+namespace Dwes\AlquilerMovilidad\Model;
 
 interface Resumible
 {
