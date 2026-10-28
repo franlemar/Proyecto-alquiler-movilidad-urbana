@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\AlquilerMovilidad;
+
 include_once "Vehiculo.php";
 
 class CocheElectrico extends Vehiculo

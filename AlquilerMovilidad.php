@@ -1,5 +1,7 @@
 <?php
 
+namespace Dwes\AlquilerMovilidad;
+
 include_once "Vehiculo.php";
 include_once "Patinete.php";
 include_once "BicicletaElectrica.php";
@@ -17,7 +19,7 @@ class AlquilerMovilidad
         /** @var Vehiculo[] */
         private array  $vehiculos = [],
         /** @var Cliente[] */
-        private array  $socios = [],
+        private array  $clientes = [],
     )
     {
     }
@@ -30,9 +32,9 @@ class AlquilerMovilidad
 
     private function buscaCliente(int $numCliente): Cliente|null
     {
-        foreach ($this->socios as $socio) {
-            if ($socio->getNumero() === $numCliente) {
-                return $socio;
+        foreach ($this->clientes as $cliente) {
+            if ($cliente->getNumero() === $numCliente) {
+                return $cliente;
             }
         }
         return null;
@@ -92,22 +94,22 @@ class AlquilerMovilidad
         }
     }
 
-    public function incluirSocio(
+    public function incluirCliente(
         string $nombre,
         int    $maxAlquilerConcurrente = 3): void
     {
-        self::$indiceSocio++;
-        $nuevoSocio = new Cliente($nombre, self::$indiceSocio, $maxAlquilerConcurrente);
+        self::$indiceCliente++;
+        $nuevoCliente = new Cliente($nombre, self::$indiceCliente, $maxAlquilerConcurrente);
 
-        $this->socios[] = $nuevoSocio;
-        echo "<br>Socio " . $nombre . " añadido correctamente.";
+        $this->clientes[] = $nuevoCliente;
+        echo "<br>Cliente " . $nombre . " añadido correctamente.";
     }
 
-    public function listarSocios(): void
+    public function listarClientes(): void
     {
-        echo "<p><strong>--- LISTA DE SOCIOS ---</strong></p>";
-        foreach ($this->socios as $socio) {
-            $socio->muestraResumen();
+        echo "<p><strong>--- LISTA DE CLIENTES ---</strong></p>";
+        foreach ($this->clientes as $cliente) {
+            $cliente->muestraResumen();
             echo "<br>";
         }
     }
@@ -115,23 +117,24 @@ class AlquilerMovilidad
     public function alquilarClienteVehiculo(
         int $numCliente,
         int $numVehiculo
-    ): void
+    ): self
     {
 
-        //Busco el socio
-        $socioEncontrado = $this->buscaCliente($numCliente);
-        if ($socioEncontrado === null) {
-            echo "<br>No se puede alquilar: el socio con número " . $numCliente . " no existe.";
-            return;
+        //Busco el cliente
+        $clienteEncontrado = $this->buscaCliente($numCliente);
+        if ($clienteEncontrado === null) {
+            echo "<br>No se puede alquilar: el cliente con número " . $numCliente . " no existe.";
+            return $this;
         }
 
         //Busco el vehículo
         $vehiculoEncontrado = $this->buscaVehiculo($numVehiculo);
         if ($vehiculoEncontrado === null) {
             echo "<br>No se puede alquilar: el vehículo con número" . $numVehiculo . "no existe.";
-            return;
+            return $this;
         }
 
-        $socioEncontrado->alquilar($vehiculoEncontrado);
+        $clienteEncontrado->alquilar($vehiculoEncontrado);
+        return $this;
     }
 }

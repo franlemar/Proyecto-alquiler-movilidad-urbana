@@ -1,5 +1,9 @@
 <?php
 
+namespace Dwes\AlquilerMovilidad;
+
+include_once "Vehiculo.php";
+
 class Cliente
 {
 
@@ -43,18 +47,18 @@ class Cliente
     public function alquilar(Vehiculo $v): bool
     {
         if ($this->tieneAlquilado($v)) {
-            echo "<br>Ya tiene este vehículo alquilado, o ha superado el máximo de vehículos alquilados permitidos";
+            echo "<br> El cliente " . $this->nombre . " ya tiene este vehículo alquilado, o ha superado el máximo de vehículos alquilados permitidos";
             return false;
         }
 
         if (count($this->vehiculosAlquilados) >= $this->maxAlquilerConcurrente) {
-            echo "<br>Ha superado el máximo de vehículos alquilados permitidos";
+            echo "<br>El cliente " . $this->nombre . " ha superado el máximo de vehículos alquilados permitidos";
             return false;
         }
 
         $this->vehiculosAlquilados[] = $v;
         $this->numVehiculosAlquilados++;
-        echo "<br>Se ha realizado el alquiler del vehículo correctamente. Se almacenará dicho alquiler en su historial";
+        echo "<br>Se ha realizado el alquiler del vehículo correctamente. Se almacenará dicho alquiler en el historial del cliente: " . $this->nombre;
         return true;
     }
 
@@ -79,9 +83,7 @@ class Cliente
         foreach ($this->vehiculosAlquilados as $vehiculo){
             $vehiculo->muestraResumen();
         }
-
     }
-
 
     public function muestraResumen(): void
     {

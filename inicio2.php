@@ -5,6 +5,11 @@ include_once "BicicletaElectrica.php";
 include_once "CocheElectrico.php";
 include_once "Cliente.php";
 
+use Dwes\AlquilerMovilidad\Patinete;
+use Dwes\AlquilerMovilidad\BicicletaElectrica;
+use Dwes\AlquilerMovilidad\CocheElectrico;
+use Dwes\AlquilerMovilidad\Cliente;
+
 
 //instanciamos un par de objetos cliente
 $cliente1 = new Cliente("Bruce Wayne", 23);

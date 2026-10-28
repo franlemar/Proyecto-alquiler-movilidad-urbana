@@ -1,5 +1,7 @@
 <?php
 
+namespace Dwes\AlquilerMovilidad;
+
 interface Resumible
 {
 
