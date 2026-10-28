@@ -24,6 +24,25 @@ class AlquilerMovilidad
         echo "<br>" . $v->titulo . " añadido correctamente";
     }
 
+    private function buscaCliente(int $numCliente): Cliente|null
+    {
+        foreach ($this->socios as $socio) {
+            if ($socio->getNumero() === $numCliente) {
+                return $socio;
+            }
+        }
+        return null;
+    }
+
+    private function buscaVehiculo(int $numVehiculo): Vehiculo|null{
+        foreach ($this->vehiculos as $vehiculo) {
+            if ($vehiculo->getNumero() === $numVehiculo) {
+                return $vehiculo;
+            }
+        }
+        return null;
+    }
+
     public function incluirPatinete(
         string $titulo,
         float  $precio,
@@ -94,30 +113,17 @@ class AlquilerMovilidad
         int $numVehiculo
     ): void
     {
-        //Busco el socio
-        $socioEncontrado = null;
-        foreach ($this->socios as $socio){
-            if($socio->getNumero() === $numCliente){
-                $socioEncontrado = $socio;
-                break;
-            }
-        }
 
-        if($socioEncontrado === null){
-            echo "<br>No se puede alquilar: el socio con número " .  $numCliente . " no existe.";
+        //Busco el socio
+        $socioEncontrado = $this->buscaCliente($numCliente);
+        if ($socioEncontrado === null) {
+            echo "<br>No se puede alquilar: el socio con número " . $numCliente . " no existe.";
             return;
         }
 
         //Busco el vehículo
-        $vehiculoEncontrado = null;
-        foreach ($this->vehiculos as $vehiculo){
-            if($vehiculo->getNumero() === $numVehiculo){
-                $vehiculoEncontrado = $vehiculo;
-                break;
-            }
-        }
-
-        if($vehiculoEncontrado === null){
+        $vehiculoEncontrado = $this->buscaVehiculo($numVehiculo);
+        if ($vehiculoEncontrado === null) {
             echo "<br>No se puede alquilar: el vehículo con número" . $numVehiculo . "no existe.";
             return;
         }

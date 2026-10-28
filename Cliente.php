@@ -30,12 +30,14 @@ class Cliente
 
     public function tieneAlquilado(Vehiculo $v): bool
     {
-        foreach ($this->vehiculosAlquilados as $vehiculo) {
-            if ($vehiculo === $v) {
-                return true;
-            }
-        }
-        return false;
+//        foreach ($this->vehiculosAlquilados as $vehiculo) {
+//            if ($vehiculo === $v) {
+//                return true;
+//            }
+//        }
+//        return false;
+
+        return in_array($v, $this->vehiculosAlquilados, true);
     }
 
     public function alquilar(Vehiculo $v): bool
@@ -59,7 +61,8 @@ class Cliente
     public function devolver(int $numVehiculo): bool{
         foreach ($this->vehiculosAlquilados as $indice => $vehiculo){
             if($vehiculo->getNumero() === $numVehiculo){
-                unset($this->vehiculosAlquilados[$indice]);
+                //Unset en este caso dejaría el hueco vacío en un array secuencial. Mejor Splice()
+                array_splice($this->vehiculosAlquilados, $indice, 1);
 
                 echo "<br>El vehículo con número " . $numVehiculo . " se ha devuelto correctamente";
                 return true;
