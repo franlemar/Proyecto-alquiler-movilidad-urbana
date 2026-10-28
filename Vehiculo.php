@@ -1,6 +1,7 @@
 <?php
+include_once "Resumible.php";
 
-class Vehiculo
+abstract class Vehiculo implements Resumible
 {
 
     const float IVA = 0.21;
@@ -30,7 +31,7 @@ class Vehiculo
 
     public function muestraResumen(): void
     {
-        echo "<br>Producto: " . $this->titulo . "<br>" .
+        echo "Producto: " . $this->titulo . "<br>" .
             "Precio sin IVA: " . $this->precio . "€ <br>" .
             "Precio con IVA: " . $this->getPrecioConIVA() . "€ <br>";
     }

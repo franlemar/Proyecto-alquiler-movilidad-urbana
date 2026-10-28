@@ -82,8 +82,8 @@ class Cliente
 
     public function muestraResumen(): void
     {
-        echo "Nombre del cliente: " . $this->nombre . "\n" .
-            "Cantidad de vehículos alquilados: " . count($this->vehiculosAlquilados);
+        echo "Nombre del cliente: " . $this->nombre . "<br>" .
+            "Cantidad de vehículos alquilados: " . count($this->vehiculosAlquilados) . "<br>";
     }
 
 }
