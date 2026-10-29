@@ -1,6 +1,8 @@
 <?php
 namespace Dwes\AlquilerMovilidad\Model;
 
+require_once "Resumible.php";
+
 abstract class Vehiculo implements Resumible
 {
 
