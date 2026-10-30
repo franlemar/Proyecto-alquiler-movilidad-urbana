@@ -15,9 +15,21 @@ class AlquilerMovilidad
         private array  $clientes = [],
         private int    $indiceCliente = 0,
 
-        private int    $indiceVehiculo = 0
+        private int    $indiceVehiculo = 0,
+        private int    $numVehiculosAlquilados = 0,
+        private int    $numTotalAlquileres = 0
     )
     {
+    }
+
+    public function getNumVehiculosAlquilados(): int
+    {
+        return $this->numVehiculosAlquilados;
+    }
+
+    public function getNumTotalAlquileres(): int
+    {
+        return $this->numTotalAlquileres;
     }
 
     private
@@ -143,8 +155,116 @@ class AlquilerMovilidad
 
         try {
             $clienteEncontrado->alquilar($vehiculoEncontrado);
+            $this->numVehiculosAlquilados++;
+            $this->numTotalAlquileres++;
         } catch (AlquilerMovilidadException $e) {
             echo "<br>No se ha podido realizar el alquiler: " . $e->getMessage();
+        }
+
+        return $this;
+    }
+
+    public function devolverClienteVehiculo(int $numCliente, int $numVehiculo): self
+    {
+        //Busco el cliente
+        $clienteEncontrado = $this->buscaCliente($numCliente);
+        if ($clienteEncontrado === null) {
+            echo "<br>No se puede devolver: el cliente con número " . $numCliente . " no existe.";
+            return $this;
+        }
+
+        //Busco el vehículo
+        $vehiculoEncontrado = $this->buscaVehiculo($numVehiculo);
+        if ($vehiculoEncontrado === null) {
+            echo "<br>No se puede devolver: el vehículo con número" . $numVehiculo . "no existe.";
+            return $this;
+        }
+
+        try {
+            $clienteEncontrado->devolver($numVehiculo);
+            $this->numVehiculosAlquilados--;
+        } catch (AlquilerMovilidadException $e) {
+            echo "<br>No se ha podido realizar la devolucion: " . $e->getMessage();
+        }
+        return $this;
+    }
+
+
+    public function alquilarClienteVehiculos(int $numCliente, array $numerosVehiculos): self
+    {
+        //Busco el cliente
+        $clienteEncontrado = $this->buscaCliente($numCliente);
+        if ($clienteEncontrado === null) {
+            echo "<br>No se puede alquilar: el cliente con número " . $numCliente . " no existe.";
+            return $this;
+        }
+
+        //Comprobamos que los vehículos estén disponibles
+        $vehiculosDisponiblesAlquiler = [];
+
+        foreach ($numerosVehiculos as $numVehiculo) {
+            $vehiculo = $this->buscaVehiculo($numVehiculo);
+
+            if ($vehiculo === null) {
+                echo "<br>No se puede alquilar: el vehículo con número" . $numVehiculo . "no existe.";
+                return $this;
+            }
+
+            if ($vehiculo->alquilado) {
+                echo "<br>No se puede alquilar: el vehículo con número" . $numVehiculo . "ya está alquilado.";
+                return $this;
+            }
+
+            if (in_array($vehiculo, $vehiculosDisponiblesAlquiler, true)) {
+                echo "<br>No se puede alquilar: el vehículo con número " . $numVehiculo . " está repetido en la solicitud.";
+                return $this;
+            }
+
+            $vehiculosDisponiblesAlquiler[] = $vehiculo;
+        }
+
+        foreach ($numerosVehiculos as $numVehiculo) {
+            $this->alquilarClienteVehiculo($numCliente, $numVehiculo);
+        }
+
+        return $this;
+    }
+
+    public function devolverClienteVehiculos(int $numCliente, array $numerosVehiculos): Self
+    {
+        //Busco el cliente
+        $clienteEncontrado = $this->buscaCliente($numCliente);
+        if ($clienteEncontrado === null) {
+            echo "<br>No se puede devolver: el cliente con número " . $numCliente . " no existe.";
+            return $this;
+        }
+
+        //Comprobamos que los vehículos estén disponibles
+        $vehiculosDevolver = [];
+
+        foreach ($numerosVehiculos as $numVehiculo) {
+            $vehiculo = $this->buscaVehiculo($numVehiculo);
+
+            if ($vehiculo === null) {
+                echo "<br>No se puede devolver: el vehículo con número" . $numVehiculo . "no existe.";
+                return $this;
+            }
+
+            if(!$clienteEncontrado->tieneAlquilado($vehiculo)){
+                echo "<br>No se puede devolver: el cliente " . $clienteEncontrado->getNumero() . " no tiene alquilado el vehículo con número " . $numVehiculo;
+                return $this;
+            }
+
+            if (in_array($vehiculo, $vehiculosDevolver, true)) {
+                echo "<br>No se puede devolver: el vehículo con número " . $numVehiculo . " está repetido en la solicitud.";
+                return $this;
+            }
+
+            $vehiculosDevolver[] = $vehiculo;
+        }
+
+        foreach ($numerosVehiculos as $numVehiculo) {
+            $this->devolverClienteVehiculo($numCliente, $numVehiculo);
         }
 
         return $this;

@@ -48,7 +48,7 @@ class Cliente
 
     public function alquilar(Vehiculo $v): self
     {
-        if ($this->tieneAlquilado($v)) {
+        if ($v->alquilado) {
             throw new VehiculoYaAlquiladoException("El cliente " . $this->nombre . " ya tiene este vehículo alquilado");
         }
 
@@ -56,6 +56,7 @@ class Cliente
             throw new CupoSuperadoException("El cliente " . $this->nombre . " ha superado el máximo de vehículos alquilados permitidos");
         }
 
+        $v->alquilado = true;
         $this->vehiculosAlquilados[] = $v;
         $this->numVehiculosAlquilados++;
         echo "<br>Se ha realizado el alquiler del vehículo correctamente. Se almacenará dicho alquiler en el historial del cliente: " . $this->nombre;
@@ -67,6 +68,7 @@ class Cliente
         foreach ($this->vehiculosAlquilados as $indice => $vehiculo) {
             if ($vehiculo->getNumero() === $numVehiculo) {
                 //Unset en este caso dejaría el hueco vacío en un array secuencial. Mejor Splice()
+                $vehiculo->alquilado = false;
                 array_splice($this->vehiculosAlquilados, $indice, 1);
                 $this->numVehiculosAlquilados--;
 

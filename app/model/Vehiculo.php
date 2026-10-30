@@ -7,6 +7,7 @@ abstract class Vehiculo implements Resumible
 {
 
     const float IVA = 0.21;
+    public bool $alquilado = false;
 
     public function __construct(
         public string $titulo,

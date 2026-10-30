@@ -1,4 +1,5 @@
 <?php
+
 namespace Dwes\AlquilerMovilidad\Model;
 
 class BicicletaElectrica extends Vehiculo
